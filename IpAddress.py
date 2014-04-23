@@ -6,23 +6,21 @@ import urllib.error
 import re
 
 class InsertIpAddressCommand(sublime_plugin.TextCommand):
-    def __init__(self, view):
-        self.ip = None
-        self.view = view
-        self.urls = {
-            'http://ipecho.net/plain': {
-                'format': 'text'
-            },
-            'http://jsonip.com': {
-                'format': 'json',
-                'path'  : 'ip'
-            }
+    ip = None
+    urls = {
+        'http://ipecho.net/plain': {
+            'format': 'text'
+        },
+        'http://jsonip.com': {
+            'format': 'json',
+            'path'  : 'ip'
         }
-        self.parseRules = {
-            'json': lambda data, settings: json.loads(data)[settings['path']],
-            'text': lambda data, settings: data
-        }
-        self.ipMatcher = re.compile("^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$")
+    }
+    parseRules = {
+        'json': lambda data, settings: json.loads(data)[settings['path']],
+        'text': lambda data, settings: data
+    }
+    ipMatcher = re.compile("^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$")
 
     def run(self, edit):
         if self.ip is None:
@@ -54,7 +52,7 @@ class InsertIpAddressCommand(sublime_plugin.TextCommand):
                     )
                     continue
 
-                self.ip = ip
+                InsertIpAddressCommand.ip = ip
                 break;
 
             if self.ip is None:
