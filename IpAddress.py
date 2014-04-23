@@ -57,9 +57,9 @@ class InsertIpAddressCommand(sublime_plugin.TextCommand):
                 self.ip = ip
                 break;
 
-        if self.ip is None:
-            sublime.error_message("Unable to retrieve IP address")
-            return
+            if self.ip is None:
+                sublime.error_message("Unable to retrieve IP address")
+                return
 
         for region in self.view.sel():
             if not region.empty():
