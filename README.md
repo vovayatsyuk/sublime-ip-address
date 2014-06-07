@@ -8,4 +8,7 @@ Get your external Ip Address directly inside Sublime editor.
 
 ## Usage
 Click on `Tools->Command Pallette` (<kbd>Cmd+Shift+P</kbd> / <kbd>Ctrl+Shift+P</kbd>),
-type "Ip Address", and select one of available commands.
+type "Ip Address", and select one of available commands:
+ - Insert IP
+ - Copy to clipboard
+ - Refresh IP
