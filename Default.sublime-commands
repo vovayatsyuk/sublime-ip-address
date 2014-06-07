@@ -2,5 +2,13 @@
     {
         "caption": "Ip Address: Insert IP",
         "command": "insert_ip_address"
+    },
+    {
+        "caption": "Ip Address: Refresh IP",
+        "command": "refresh_ip_address"
+    },
+    {
+        "caption": "Ip Address: Copy to clipboard",
+        "command": "set_clipboard_ip_address"
     }
 ]
