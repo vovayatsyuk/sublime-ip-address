@@ -1,0 +1,3 @@
+[
+    { "keys": ["ctrl+alt+i", "ctrl+alt+p"], "command": "insert_ip_address" }
+]
