@@ -3,6 +3,7 @@ import urllib.request
 import urllib.error
 import re
 
+
 class IpAddress(object):
     _instance = None
 
@@ -20,7 +21,7 @@ class IpAddress(object):
             },
             'http://jsonip.com': {
                 'format': 'json',
-                'path'  : 'ip'
+                'path': 'ip'
             }
         }
         self.parseRules = {
@@ -29,7 +30,7 @@ class IpAddress(object):
         }
         self.ipMatcher = re.compile("^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$")
 
-    def get(self, refresh = False):
+    def get(self, refresh=False):
         if (self.ip is None or refresh):
             self.ip = self.fetch()
         return self.ip
@@ -39,15 +40,17 @@ class IpAddress(object):
             settings = self.urls[server]
             try:
                 self.debug("Getting IP using {0}".format(server))
-                response = urllib.request.urlopen(server).read().decode('UTF-8')
+                response = (
+                    urllib.request.urlopen(server).read().decode('UTF-8')
+                )
                 ip = self.parseRules[settings['format']](response, settings)
-            except urllib.error.URLError: # urlopen exception
+            except urllib.error.URLError:
                 self.debug("Unable to connect to {0}".format(server))
                 continue
-            except UnicodeDecodeError: # decode exception
+            except UnicodeDecodeError:
                 self.debug("Unable to decode response from {0}".format(server))
                 continue
-            except: # parse response exception
+            except Exception:
                 self.debug("Unable to parse IP from {0}".format(server))
                 continue
 

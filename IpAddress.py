@@ -3,6 +3,7 @@ import sublime_plugin
 
 from .ipaddress.IpAddress import IpAddress
 
+
 class InsertIpAddressCommand(sublime_plugin.TextCommand):
     def run(self, edit):
         ip = IpAddress.instance().get()
@@ -17,6 +18,7 @@ class InsertIpAddressCommand(sublime_plugin.TextCommand):
             else:
                 self.view.insert(edit, region.begin(), ip)
 
+
 class RefreshIpAddressCommand(sublime_plugin.WindowCommand):
     def run(self):
         ip = IpAddress.instance().get(True)
@@ -26,6 +28,7 @@ class RefreshIpAddressCommand(sublime_plugin.WindowCommand):
         else:
             sublime.status_message("IP address was refreshed: {0}".format(ip))
 
+
 class SetClipboardIpAddressCommand(sublime_plugin.WindowCommand):
     def run(self):
         ip = IpAddress.instance().get()
@@ -34,4 +37,6 @@ class SetClipboardIpAddressCommand(sublime_plugin.WindowCommand):
             sublime.error_message("Unable to retrieve IP address")
         else:
             sublime.set_clipboard(ip)
-            sublime.status_message("IP address {0} was copied to clipboard".format(ip))
+            sublime.status_message(
+                "IP address {0} was copied to clipboard".format(ip)
+            )
