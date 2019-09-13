@@ -1,3 +1,0 @@
-[
-    { "keys": ["ctrl+super+i", "ctrl+super+p"], "command": "insert_ip_address" }
-]
