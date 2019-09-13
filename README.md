@@ -18,3 +18,22 @@ Get your external IPv4 and IPv6 addresses directly inside SublimeText editor.
     -  Copy IPv4 to clipboard
     -  Copy IPv6 to clipboard
     -  Refresh IP
+
+## Keyboard Shortcuts
+
+ 1. Click _Preferences > Key Bindings_
+ 2. Add the following line into your keymap file:
+
+    ```
+    { "keys": ["ctrl+alt+i", "ctrl+alt+p"], "command": "insert_ip_address" }
+    ```
+
+    Available command names:
+
+    ```
+    insert_ip_address
+    insert_ipv6_address
+    set_clipboard_ip_address
+    set_clipboard_ipv6_address
+    refresh_ip_address
+    ```
