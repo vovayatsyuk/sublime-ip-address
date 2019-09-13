@@ -1,14 +1,22 @@
 [
     {
-        "caption": "Ip Address: Insert IP",
+        "caption": "Ip Address: Insert IPv4",
         "command": "insert_ip_address"
+    },
+    {
+        "caption": "Ip Address: Insert IPv6",
+        "command": "insert_ipv6_address"
     },
     {
         "caption": "Ip Address: Refresh IP",
         "command": "refresh_ip_address"
     },
     {
-        "caption": "Ip Address: Copy to clipboard",
+        "caption": "Ip Address: Copy IPv4 to clipboard",
         "command": "set_clipboard_ip_address"
+    },
+    {
+        "caption": "Ip Address: Copy IPv6 to clipboard",
+        "command": "set_clipboard_ipv6_address"
     }
 ]

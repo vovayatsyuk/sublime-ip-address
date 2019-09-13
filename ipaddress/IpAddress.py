@@ -1,7 +1,6 @@
 import json
 import urllib.request
 import urllib.error
-import re
 
 
 class IpAddress(object):
@@ -14,30 +13,43 @@ class IpAddress(object):
         return cls._instance
 
     def __init__(self):
-        self.ip = None
+        self.ip = {
+            'ipv4': None,
+            'ipv6': None
+        }
         self.urls = {
-            'http://ipecho.net/plain': {
-                'format': 'text'
+            'ipv4': {
+                'https://ipecho.net/plain': {
+                    'format': 'text'
+                },
+                'https://ipv4.jsonip.com/': {
+                    'format': 'json',
+                    'path': 'ip'
+                }
             },
-            'http://jsonip.com': {
-                'format': 'json',
-                'path': 'ip'
+            'ipv6': {
+                'https://ipv6.jsonip.com/': {
+                    'format': 'json',
+                    'path': 'ip'
+                }
             }
         }
         self.parseRules = {
             'json': lambda data, settings: json.loads(data)[settings['path']],
             'text': lambda data, settings: data
         }
-        self.ipMatcher = re.compile("^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$")
 
-    def get(self, refresh=False):
-        if (self.ip is None or refresh):
-            self.ip = self.fetch()
-        return self.ip
+    def get(self, version='ipv4', refresh=False):
+        if version not in self.urls:
+            return None
 
-    def fetch(self):
-        for server in self.urls:
-            settings = self.urls[server]
+        if (self.ip[version] is None or refresh):
+            self.ip[version] = self.fetch(version)
+        return self.ip[version]
+
+    def fetch(self, version='ipv4'):
+        for server in self.urls[version]:
+            settings = self.urls[version][server]
             try:
                 self.debug("Getting IP using {0}".format(server))
                 response = (
@@ -52,10 +64,6 @@ class IpAddress(object):
                 continue
             except Exception:
                 self.debug("Unable to parse IP from {0}".format(server))
-                continue
-
-            if not self.ipMatcher.match(ip):
-                self.debug("{0} is not a valid IP address".format(ip))
                 continue
 
             self.debug("{0} received using {1}".format(ip, server))
